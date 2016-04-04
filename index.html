@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
   <title>Shipped Demo | Sample Shopping Website</title>
-
+  
   <!-- Bootstrap Core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -37,6 +37,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navTop">
         <ul class="nav navbar-nav">
+            <li class="after-login hide">
+                <a href="#"  onclick= "javascript:void();">Welcome <span id="user-email"></span>!</a>
+            </li>
      
           <li>
             <a href="cart.html">Cart</a>
@@ -44,9 +47,6 @@
           <li class="before-login">
             <a href="#" onclick="loginPanelVisiblity('L');">Sign In</a>
           </li>
-            <li class="after-login hide">
-                <a href="#"  onclick= "javascript:void();">Welcome <span id="user-email"></span>!</a>
-            </li>
             <li class="after-login hide">
             <a href="#" onclick="loginPanelVisiblity('S');">Sign Out</a>
           </li>

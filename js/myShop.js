@@ -166,24 +166,23 @@ function btnAddToCart(item_id) {
   // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
   // Cart
   // Enndpoint CART_HOST
-
+  $('.msgPanel').show();
   $.ajax({
-    url: endpointCart + '/v1/cart/' + item_id + '?mock=true',
+    url: endpointCart + '/v1/cart/' + item_id,//+ '?mock=true',
     type: 'POST',
     dataType: 'json',
     success: function(data) {
       // alert('Data: ' + JSON.stringify(data));
-      $('#success-alert').html("<div class='alert alert-success'>" + JSON.stringify(data) + "</div>");
+      $('#success-alert').html(JSON.stringify(data.message));
       $("#success-alert").alert();
-      $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+      $("#success-alert").fadeTo(2000, 500).slideUp(1500, function() {
         $("#success-alert").hide()
       });
     },
     error: function(request, error) {
-      // alert("Request: " + JSON.stringify(request));
-      $('#danger-alert').html("<div class='alert alert-error'>" + JSON.stringify(request) + "</div>");
+      $('#danger-alert').html("Something went wrong, Please try again.");
       $("#danger-alert").alert();
-      $("#danger-alert").fadeTo(2000, 500).slideUp(500, function() {
+      $("#danger-alert").fadeTo(2000, 500).slideUp(1500, function() {
         $("#danger-alert").hide()
       });
     }
