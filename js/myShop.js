@@ -90,7 +90,7 @@ function btnLoginCall() {
   var pass = $("#txtLoginPassword").val();
   // alert('Your email :- ' + email + "   and pass is:-  " + pass);
   // curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
-
+$(".msgPanel").show();
   $.ajax({
     url: endpointAccount + '/v1/account/',
     type: 'POST',
@@ -103,22 +103,23 @@ function btnLoginCall() {
       // alert('Data: ' + JSON.stringify(data));
         $("#txtLoginEmail").val('');
         $("#txtLoginPassword").val('');
-      $('#success-alert').html("<div class='alert alert-success'>" + JSON.stringify(data.username) + "</div>");
+      $('#success-alert').html("Welcome to Online Shopping Center "+JSON.stringify(data.username)+" !");
       $("#success-alert").alert();
-      $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+      $("#success-alert").fadeTo(2000, 500).slideUp(1000, function() {
         $("#success-alert").hide()
       });
 
-      //setCookie("username", email, 365);
-      ///setupUserInfo(email);
         setupUserInfo(data.username);
     },
     error: function(request, error) {
       // alert("Request: " + JSON.stringify(request));
-      $('#danger-alert').html("<div class='alert alert-error'>" + JSON.stringify(request) + "</div>");
+	  
+	    $("#txtLoginEmail").val('');
+        $("#txtLoginPassword").val('');
+      $('#danger-alert').html(JSON.stringify(request.responseJSON.message));
       $("#danger-alert").alert();
-      $("#danger-alert").fadeTo(2000, 500).slideUp(500, function() {
-        $("#danger-alert").hide()
+      $("#danger-alert").fadeTo(2000, 500).slideUp(1000, function() {
+        $("#success-alert").hide()
       });
     }
   });
