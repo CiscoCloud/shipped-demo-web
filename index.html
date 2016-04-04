@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Shipped Demo | Sample Shopping Website</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/myShop.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">Shopping Corner</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="navTop">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="#">Contact</a>
+          </li>
+          <li class="before-login">
+            <a href="#" onclick="loginPanelVisiblity('L');">Sign In</a>
+          </li>
+          <li class="before-login">
+            <a href="#" onclick="loginPanelVisiblity('R');">Sign Up</a>
+          </li>
+            <li class="after-login hide">
+                <a href="#"  onclick= "javascript:void();">Welcome <span id="user-email"></span>!</a>
+            </li>
+            <li class="after-login hide">
+            <a href="#" onclick="loginPanelVisiblity('S');">Sign Out</a>
+          </li>
+          <li>
+            <a href="cart.html">Cart</a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!--Do not delet this -->
+	<div class="msgPanel">
+    <div class="alert alert-success" id="success-alert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+
+    <div class="alert alert-info" id="info-alert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Info!</strong> Indicates a neutral informative change or action.
+    </div>
+
+    <div class="alert alert-warning" id="warning-alert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Warning!</strong> Indicates a warning that might need attention.
+    </div>
+
+    <div class="alert alert-danger" id="danger-alert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+    </div>
+	</div>
+    <!-- Jumbotron Header 
+    <header class="jumbotron hero-spacer">
+      <h1 id="userWelcome">Welcome!</h1>
+      <p>Welcome to the Cisco Shipped Shop.</p>
+      <p><a class="btn btn-primary btn-large" href="#" onclick="loginPanelVisiblity('R');">Sign Up Now !</a>
+      </p>
+    </header>
+	-->
+
+    <!-- Title -->
+    <div class="row">
+      <div class="col-lg-12">
+        <h3>Latest Products</h3>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Page Features -->
+    <div id="prodSection" class="row text-center">
+
+ 
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright &copy; Shipped Shopping 2016</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- My modals ... -->
+    <div class="modal fade" id="myLoginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="loginPanel">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                ×
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+								Login
+							</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+
+                <label for="exampleInputEmail1">
+                  Email address
+                </label>
+                <input type="email" class="form-control" id="txtLoginEmail" />
+              </div>
+              <div class="form-group">
+
+                <label for="exampleInputPassword1">
+                  Password
+                </label>
+                <input type="password" class="form-control" id="txtLoginPassword" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" onclick="loginPanelVisiblity('P');">
+                Forgot Password
+              </button>
+              <button type="button" class="btn btn-success" onclick="loginPanelVisiblity('R');">
+                Register
+              </button>
+              <button id="btnLogin" type="button" class="btn btn-primary">
+                Login
+              </button>
+            </div>
+          </div>
+
+          <div id="registerPanel">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                ×
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+								Register
+							</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+
+                <label for="exampleInputEmail1">
+                  Email address
+                </label>
+                <input type="email" class="form-control" id="txtRegEmail" />
+              </div>
+              <div class="form-group">
+
+                <label for="exampleInputPassword1">
+                  Password
+                </label>
+                <input type="password" class="form-control" id="txtRegPassword" />
+              </div>
+              <div class="form-group">
+
+                <label for="exampleInputPassword1">
+                  Repeat Password
+                </label>
+                <input type="password" class="form-control" id="txtRegPassword2" />
+              </div>
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-success" onclick="loginPanelVisiblity('L');">
+                Login
+              </button>
+              <button id="btnRegister" type="button" class="btn btn-primary">
+                Register
+              </button>
+            </div>
+          </div>
+          <div id="forgotPasswordPanel">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                ×
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+								Forgot Password
+							</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+
+                <label for="exampleInputEmail1">
+                  Email address
+                </label>
+                <input type="email" class="form-control" id="txtFPEmail" />
+              </div>
+
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-success" onclick="loginPanelVisiblity('L');">
+                Login
+              </button>
+              <button id="btnPassword" type="button" class="btn btn-primary">
+                Reset password
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+  <!-- /.container -->
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+  <script src="js/myShop.js"></script>
+
+</body>
+
+</html>

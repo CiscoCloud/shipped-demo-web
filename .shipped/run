@@ -1,0 +1,5 @@
+#!/bin/bash
+
+${0%/*}/build
+node index.js
+

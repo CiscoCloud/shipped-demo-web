@@ -1,0 +1,26 @@
+{
+  "name": "shipped-buildpack-template-express",
+  "version": "0.0.0",
+  "description": "This is a sample hello world application for shipped using express.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "bin/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CiscoCloud/shipped-buildpack-template-express.git"
+  },
+  "keywords": [
+    "example"
+  ],
+  "author": "Cisco",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CiscoCloud/shipped-buildpack-template-express/issues"
+  },
+  "homepage": "https://github.com/CiscoCloud/shipped-buildpack-template-express",
+  "dependencies": {
+    "express": "^4.12.4",     
+    "serve-static": ">= 0.0.1"
+  }
+}
