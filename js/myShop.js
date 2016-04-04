@@ -192,23 +192,28 @@ function btnAddToCart(item_id) {
 function btnRemoveCartItem(item_id) {
   // //ajax call .. to your get all iteams api
   // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
-
+	$('.msgPanel').show();
+	
   $.ajax({
-    url: endpointCart + '/v1/cart/' + item_id + '?mock=true',
+    url: endpointCart + '/v1/cart/' + item_id+'?mock=true',
     type: 'DELETE',
     dataType: 'json',
     success: function(data) {
-      // alert('Data: ' + JSON.stringify(data));
+     
       location.reload();
-      $('#success-alert').html("<div class='alert alert-success'>" + JSON.stringify(data) + "</div>");
+      $('#success-alert').html(JSON.stringify(data));
       $("#success-alert").alert();
       $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
         $("#success-alert").hide()
       });
     },
     error: function(request, error) {
-      // alert("Request: " + JSON.stringify(request));
-      $('#danger-alert').html("<div class='alert alert-error'>" + JSON.stringify(request) + "</div>");
+	$('#tr_'+item_id).remove();
+	 elem=$("[id^=tr_]") 
+	   if(elem.length==0) {
+		$('#shoppingCart').hide();	  
+	   }
+      $('#danger-alert').html(JSON.stringify(request));
       $("#danger-alert").alert();
       $("#danger-alert").fadeTo(2000, 500).slideUp(500, function() {
         $("#danger-alert").hide()
@@ -333,6 +338,7 @@ function myProductHtmlTempl(item) {
   // Register button
   // alert("btnAddToCart"+item.item_id);
   $('#prodSection').on('click', '#btnAddToCart' + item.item_id, function() {
+	  
     btnAddToCart(item.item_id);
   });
   return html;
@@ -340,18 +346,19 @@ function myProductHtmlTempl(item) {
 
 function cartHtmlTempl(name, image, price, quantity, item_id) {
 
-  var html = '<tr>' +
+  var html = '<tr id="tr_' + item_id + '">' +
     '<td class="col-md-6">' +
     '<div class="media">' +
     '<a class="pull-left" href="#"> <img class="media-object" src="' + image + '" style="width: 72px; height: 72px;"> </a>' +
     '<div class="media-body">' +
     '<h4 class="media-heading"><a href="#">' + name + '</a></h4>' +
-    '<h5 class="media-heading"> by <a href="#">Brand name</a></h5>' +
-    '<span>Status: </span><span class="text-success"><strong>In Stock</strong></span>' +
+    //'<h5 class="media-heading"> by <a href="#">Brand name</a></h5>' +
+    //'<span>Status: </span><span class="text-success"><strong>In Stock</strong></span>' +
     '</div>' +
     '</div></td>' +
     '<td class="col-md-1" style="text-align: center">' +
-    '<input type="email" class="form-control" id="exampleInputEmail1" value="' + quantity + '">' +
+   // '<input type="email" class="form-control" id="exampleInputEmail1" value="' + quantity + '">' +
+   +quantity+
     '</td>' +
     '<td class="col-md-1 text-center"><strong>$' + price + '</strong></td>' +
     '<td class="col-md-1 text-center"><strong>$' + (price * quantity) + '</strong></td>' +
@@ -362,7 +369,9 @@ function cartHtmlTempl(name, image, price, quantity, item_id) {
     '</tr>';
 
   $('#shoppingCart').on('click', '#btnRemoveCartItem' + item_id, function() {
+ 
     btnRemoveCartItem(item_id);
+	
   });
 
   return html
