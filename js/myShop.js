@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    setEnvVar();
-    checkIfUserLoggedIn();
-    
-    
+  setEnvVar();
+  checkIfUserLoggedIn();
+
+
 });
 
 $(window).load(function() {
-$('.msgPanel').hide();
+  $('.msgPanel').hide();
 
 });
 
@@ -35,26 +35,22 @@ function init() {
   checkCookie();
 }
 
-function setEnvVar()
-{
-	$.ajax({
+function setEnvVar() {
+  $.ajax({
     url: '/endpoints',
     type: 'GET',
     dataType: 'json',
     success: function(data) {
-		if(data.Account)
-		{
-			endpointAccount = data.Account;
-		}
-		 if(data.Catalog)
-		{
-			endpointCatalog = data.Catalog;
-		}
-		 if(data.Cart)
-		{
-			endpointCart = data.Cart;
-		}
-		init();
+      if (data.Account) {
+        endpointAccount = data.Account;
+      }
+      if (data.Catalog) {
+        endpointCatalog = data.Catalog;
+      }
+      if (data.Cart) {
+        endpointCart = data.Cart;
+      }
+      init();
     },
     error: function(request, error) {
       console.log("Endpoint not working");
@@ -72,11 +68,10 @@ function loginPanelVisiblity(param) {
     $("#forgotPasswordPanel").show();
     $("#registerPanel").hide();
     $("#loginPanel").hide();
-  } else if(param == 'S'){
+  } else if (param == 'S') {
     removeUserInfo();
-      loginPanelVisiblity('L')
-  }
-    else {
+    loginPanelVisiblity('L')
+  } else {
     //Default Login Panel
     $("#forgotPasswordPanel").hide();
     $("#registerPanel").hide();
@@ -90,7 +85,7 @@ function btnLoginCall() {
   var pass = $("#txtLoginPassword").val();
   // alert('Your email :- ' + email + "   and pass is:-  " + pass);
   // curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
-$(".msgPanel").show();
+  $(".msgPanel").show();
   $.ajax({
     url: endpointAccount + '/v1/account/',
     type: 'POST',
@@ -101,21 +96,21 @@ $(".msgPanel").show();
     }),
     success: function(data) {
       // alert('Data: ' + JSON.stringify(data));
-        $("#txtLoginEmail").val('');
-        $("#txtLoginPassword").val('');
-      $('#success-alert').html("Welcome to Online Shopping Center "+JSON.stringify(data.username)+" !");
+      $("#txtLoginEmail").val('');
+      $("#txtLoginPassword").val('');
+      $('#success-alert').html("Welcome to Online Shopping Center " + JSON.stringify(data.username) + " !");
       $("#success-alert").alert();
       $("#success-alert").fadeTo(2000, 500).slideUp(1000, function() {
         $("#success-alert").hide()
       });
 
-        setupUserInfo(data.username);
+      setupUserInfo(data.username);
     },
     error: function(request, error) {
       // alert("Request: " + JSON.stringify(request));
-	  
-	    $("#txtLoginEmail").val('');
-        $("#txtLoginPassword").val('');
+
+      $("#txtLoginEmail").val('');
+      $("#txtLoginPassword").val('');
       $('#danger-alert').html(JSON.stringify(request.responseJSON.message));
       $("#danger-alert").alert();
       $("#danger-alert").fadeTo(2000, 500).slideUp(1000, function() {
@@ -140,25 +135,25 @@ function btnForgotPasswordCall() {
   alert('Call service to data for Forgot Password user..');
 }
 
-function removeUserInfo(){
-    localStorage.removeItem("username");
-      $('#user-email').html('');
-      $('.after-login').toggleClass('hide');
-      $('.before-login').toggleClass('hide');
+function removeUserInfo() {
+  localStorage.removeItem("username");
+  $('#user-email').html('');
+  $('.after-login').toggleClass('hide');
+  $('.before-login').toggleClass('hide');
 }
 
-function setupUserInfo(email){
-    localStorage.setItem("username", email);
-      $('#user-email').html(email);
-      $('.after-login').toggleClass('hide');
-      $('.before-login').toggleClass('hide');
+function setupUserInfo(email) {
+  localStorage.setItem("username", email);
+  $('#user-email').html(email);
+  $('.after-login').toggleClass('hide');
+  $('.before-login').toggleClass('hide');
 }
 
-function checkIfUserLoggedIn(){
-    var useremail = localStorage.getItem("username");
-    if(useremail != null){
-        setupUserInfo(useremail);
-    }
+function checkIfUserLoggedIn() {
+  var useremail = localStorage.getItem("username");
+  if (useremail != null) {
+    setupUserInfo(useremail);
+  }
 }
 
 function btnAddToCart(item_id) {
@@ -168,7 +163,7 @@ function btnAddToCart(item_id) {
   // Enndpoint CART_HOST
   $('.msgPanel').show();
   $.ajax({
-    url: endpointCart + '/v1/cart/' + item_id,//+ '?mock=true',
+    url: endpointCart + '/v1/cart/' + item_id, //+ '?mock=true',
     type: 'POST',
     dataType: 'json',
     success: function(data) {
@@ -192,14 +187,14 @@ function btnAddToCart(item_id) {
 function btnRemoveCartItem(item_id) {
   // //ajax call .. to your get all iteams api
   // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
-	$('.msgPanel').show();
-	
+  $('.msgPanel').show();
+
   $.ajax({
-    url: endpointCart + '/v1/cart/' + item_id+'?mock=true',
+    url: endpointCart + '/v1/cart/' + item_id, //+'?mock=true',
     type: 'DELETE',
     dataType: 'json',
     success: function(data) {
-     
+
       location.reload();
       $('#success-alert').html(JSON.stringify(data));
       $("#success-alert").alert();
@@ -208,11 +203,11 @@ function btnRemoveCartItem(item_id) {
       });
     },
     error: function(request, error) {
-	$('#tr_'+item_id).remove();
-	 elem=$("[id^=tr_]") 
-	   if(elem.length==0) {
-		$('#shoppingCart').hide();	  
-	   }
+      // $('#tr_' + item_id).remove();
+      // elem = $("[id^=tr_]")
+      // if (elem.length == 0) {
+      //   $('#shoppingCart').hide();
+      // }
       $('#danger-alert').html(JSON.stringify(request));
       $("#danger-alert").alert();
       $("#danger-alert").fadeTo(2000, 500).slideUp(500, function() {
@@ -227,7 +222,7 @@ function btnCheckout() {
   // //ajax call .. to your get all iteams api
 
   $.ajax({
-    url: endpointCart +'/v1/order/',
+    url: endpointCart + '/v1/order/',
     type: 'GET',
     dataType: 'json',
     success: function(data) {
@@ -280,7 +275,7 @@ function loadCart() {
   // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
 
   $.ajax({
-    url: endpointCart +'/v1/cart/?mock=true',
+    url: endpointCart + '/v1/cart/?mock=true',
     type: 'GET',
     dataType: 'json',
     success: function(cartData) {
@@ -338,7 +333,7 @@ function myProductHtmlTempl(item) {
   // Register button
   // alert("btnAddToCart"+item.item_id);
   $('#prodSection').on('click', '#btnAddToCart' + item.item_id, function() {
-	  
+
     btnAddToCart(item.item_id);
   });
   return html;
@@ -357,8 +352,8 @@ function cartHtmlTempl(name, image, price, quantity, item_id) {
     '</div>' +
     '</div></td>' +
     '<td class="col-md-1" style="text-align: center">' +
-   // '<input type="email" class="form-control" id="exampleInputEmail1" value="' + quantity + '">' +
-   +quantity+
+    // '<input type="email" class="form-control" id="exampleInputEmail1" value="' + quantity + '">' +
+    +quantity +
     '</td>' +
     '<td class="col-md-1 text-center"><strong>$' + price + '</strong></td>' +
     '<td class="col-md-1 text-center"><strong>$' + (price * quantity) + '</strong></td>' +
@@ -369,9 +364,9 @@ function cartHtmlTempl(name, image, price, quantity, item_id) {
     '</tr>';
 
   $('#shoppingCart').on('click', '#btnRemoveCartItem' + item_id, function() {
- 
+
     btnRemoveCartItem(item_id);
-	
+
   });
 
   return html
