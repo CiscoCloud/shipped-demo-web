@@ -280,13 +280,13 @@ function loadCart() {
     dataType: 'json',
     success: function(cartData) {
       // Insert HTML
-      if (cartData.items.length == 0) {
+      if (cartData.length == 0) {
         $('#shoppingCart').html("Cart Empty " + '<a href="index.html" type="button" class="btn btn-default">' +
           '<span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping' +
           '</a>');
       }
-      for (var i = 0, l = cartData.items.length; i < l; i++) {
-        var item = cartData.items;
+      for (var i = 0, l = cartData.length; i < l; i++) {
+        var item = cartData;
         $.ajax({
           url: endpointCatalog + '/v1/catalog/' + item[i].item_id + '?mock=true',
           type: 'GET',
