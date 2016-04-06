@@ -160,15 +160,16 @@ function checkIfUserLoggedIn() {
 }
 
 function btnAddToCart(item_id) {
-  // //ajax call .. to your get all iteams api
-  // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
-  // Cart
-  // Enndpoint CART_HOST
+  var username = localStorage.getItem("username")
   $('.msgPanel').show();
   $.ajax({
     url: endpointCart + '/v1/cart/' + item_id, //+ '?mock=true',
     type: 'POST',
     dataType: 'json',
+    data: JSON.stringify({
+      username: username
+    }),
+
     success: function(data) {
       // alert('Data: ' + JSON.stringify(data));
       $('#success-alert').html(JSON.stringify(data.message));
@@ -188,14 +189,15 @@ function btnAddToCart(item_id) {
 }
 
 function btnRemoveCartItem(item_id) {
-  // //ajax call .. to your get all iteams api
-  // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
-  $('.msgPanel').show();
-
+  var username = localStorage.getItem("username")
+  // $('.msgPanel').show();
   $.ajax({
     url: endpointCart + '/v1/cart/' + item_id, //+'?mock=true',
     type: 'DELETE',
     dataType: 'json',
+    data: JSON.stringify({
+      username: username
+    }),
     success: function(data) {
 
       location.reload();
@@ -251,8 +253,6 @@ function btnCheckout() {
 function loadItems() {
   var htmlProductAPI = "";
 
-  // //ajax call .. to your get all iteams api
-  // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
   $.ajax({
     url: endpointCatalog + '/v1/catalog/?mock=true',
     type: 'GET',
@@ -274,13 +274,15 @@ function loadCart() {
   var htmlCartAPI = "";
   var count = 0;
   var subtotal = 0;
-  // //ajax call .. to your get all iteams api
-  // $ curl -i -X GET -H "Content-Type: application/json" http://localhost:8888/v1/catalog/1?mock=true
-
+  var username = localStorage.getItem("username")
+  console.log(username);
   $.ajax({
-    url: endpointCart + '/v1/cart/?mock=true',
-    type: 'GET',
+    url: endpointCart + '/v1/cart/',
+    type: 'POST',
     dataType: 'json',
+    data: JSON.stringify({
+      username: username
+    }),
     success: function(cartData) {
       // Insert HTML
       if (cartData.length == 0) {
@@ -330,7 +332,7 @@ function loadCart() {
 function myProductHtmlTempl(item) {
   var html = '<div class="col-md-3 hero-feature"><div class="thumbnail"><img src="' + item.image + '" alt="" style="height:150px">' +
     '<div class="caption"><h3>' + item.name + '</h3><p>' + item.description + '</p></div><div>' +
-    ' <a href="#" id="btnAddToCart' + item.item_id + '" class="btn btn-primary">Add to Cart!</a> <a href="#" class="btn btn-default">' + item.price + '$</a></div>' +
+    ' <a href="#" id="btnAddToCart' + item.item_id + '" class="btn btn-primary">Add to Cart!</a> <a href="#" class="btn btn-default">$' + item.price + '</a></div>' +
     '</div></div>';
 
   // Register button

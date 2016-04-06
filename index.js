@@ -8,7 +8,6 @@ app.use(serveStatic(__dirname + "/."));
 
 app.get('/endpoints', function (req, res) {
 	var eps={}
-
 	eps.Account 	= process.env.ACCOUNT_HOST
 	eps.Catalog		= process.env.CATALOG_HOST
 	eps.Cart		= process.env.CART_HOST
