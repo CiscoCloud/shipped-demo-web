@@ -154,6 +154,9 @@ function checkIfUserLoggedIn() {
   if (useremail != null) {
     setupUserInfo(useremail);
   }
+  else{
+	loginPanelVisiblity('L');
+  }
 }
 
 function btnAddToCart(item_id) {
