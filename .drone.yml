@@ -1,0 +1,25 @@
+image: mikejihbe/nodejs-ssh:latest
+git:
+  path: github.com/CiscoCloud/shipped-demo-web
+script:
+  - echo "build commands"
+  - echo "no build command"
+  - echo "no test command"
+clone:
+  path: github.com/CiscoCloud/shipped-demo-web
+build:
+  image: mikejihbe/nodejs-ssh:latest
+  commands:
+    - echo "build commands"
+    - echo "no build command"
+    - echo "no test command"
+publish:
+  docker:
+    file: ./Dockerfile
+    username: $$docker_user
+    password: $$docker_key
+    registry: $$docker_registry
+    repo: $$docker_repo
+    email: $$docker_user_email
+    tag: $$COMMIT
+    
