@@ -7,9 +7,9 @@ app.use(serveStatic(__dirname + "/."));
 
 app.get('/endpoints', function(req, res) {
     var eps = {}
-    eps.Account = process.env.HOST_ACCOUNT
-    eps.Catalog = process.env.HOST_CATALOGBACKEND
-    eps.Cart = process.env.HOST_CARTBACKEND
+    eps.Account = process.env.HOST_SHIPPED_DEMO_ACCOUNT
+    eps.Catalog = process.env.HOST_SHIPPED_DEMO_CATALOG
+    eps.Cart = process.env.HOST__SHIPPED_DEMO_CART
 
     // eps.Account= "http://localhost:8887"
     // eps.Catalog		=  "http://localhost:8889"
