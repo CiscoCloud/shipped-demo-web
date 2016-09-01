@@ -11,9 +11,9 @@ $(window).load(function() {
 });
 
 // Here
-var endpointAccount = "http://production--store--account--e4e520.prd.shipped-cisco.com"
-var endpointCart = "http://production--store--cartbackend--2329ec.prd.shipped-cisco.com"
-var endpointCatalog = "http://production--store--catalogbackend--62e4c9.prd.shipped-cisco.com"
+// var endpointAccount = "http://production--store--account--e4e520.prd.shipped-cisco.com"
+// var endpointCart = "http://production--store--cartbackend--2329ec.prd.shipped-cisco.com"
+// var endpointCatalog = "http://production--store--catalogbackend--62e4c9.prd.shipped-cisco.com"
 
 function init() {
     $("#btnLogin").click(function() {
@@ -256,7 +256,7 @@ function loadItems() {
     var htmlProductAPI = "";
 
     $.ajax({
-        url: endpointCatalog + '/v1/catalog/?mock=true',
+        url: endpointCatalog + '/v1/catalog/',
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -298,7 +298,7 @@ function loadCart() {
             for (var i = 0, l = cartData.length; i < l; i++) {
                 var item = cartData;
                 $.ajax({
-                    url: endpointCatalog + '/v1/catalog/' + item[i].item_id + '?mock=true',
+                    url: endpointCatalog + '/v1/catalog/' + item[i].item_id,
                     type: 'GET',
                     dataType: 'json',
                     success: function(itemData) {
